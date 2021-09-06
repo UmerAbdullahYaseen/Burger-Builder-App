@@ -18,13 +18,28 @@ state ={
 
     ingredients :{
 
-        salad: 1,
-        meat: 1,
-        bacon: 2,
-        cheese:2
+        salad: 0,
+        meat: 0,
+        bacon: 0,
+        cheese:0
     },
-totalPrice: 4 
+totalPrice: 4,
+purchaseable: false
 }
+
+ updatePurchaseState(ingredients){
+    const sum = Object.keys(ingredients).map(igKey=> {
+        return ingredients[igKey];
+    })
+    .reduce((sum, el) =>
+    {
+         return sum + el;
+    },0);
+    this.setState({purchaseable: sum > 0});
+ }
+ 
+
+
 addIngerdientHandler = (type) =>{
  
     const oldCount = this.state.ingredients[type];
@@ -38,10 +53,12 @@ addIngerdientHandler = (type) =>{
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice + priceAddition;
     this.setState({totalPrice: newPrice,  ingredients: updatedIngedients })
+
+    this.updatePurchaseState(updatedIngedients);
 }
 
 removeIngerdientsHandler = (type) =>{
-    const oldCount = this.state.ingredients[type];
+    const oldCount = this.state.ingredients[type];  
     if (oldCount <= 0){
     return;}
     const updatedCount = oldCount - 1;
@@ -55,7 +72,7 @@ removeIngerdientsHandler = (type) =>{
     const newPrice = oldPrice - priceDeduction;
     this.setState({totalPrice: newPrice,  ingredients: updatedIngedients })
 
-
+    this.updatePurchaseState(updatedIngedients);
 }
 
 
@@ -80,6 +97,8 @@ render(){
                   ingredientsAdded= {this.addIngerdientHandler}
                   ingredientsRemoved = {this.removeIngerdientsHandler}
                   disabled = {disabledInfo}
+                  purchable = {this.state.purchaseable}
+                  price = {this.state.totalPrice}
                   />
 
              </Aux>
