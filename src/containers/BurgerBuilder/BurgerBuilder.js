@@ -54,7 +54,7 @@ purchasing: false
  }
  purchaseContinueHandler = () => {
 
-    alert('Your Lunger on its way');
+    alert('Your Lunger is on its way');
  }
 
 addIngerdientHandler = (type) =>{
