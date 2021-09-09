@@ -1,25 +1,21 @@
-import React from "react";
+import React from 'react';
+
 import './Modal.css';
-import Aux from "../../../hoc/Auxiliry";
-import BackDrop from "../Backdrop/Backdrop";
+import Aux from '../../../hoc/Auxiliry';
+import Backdrop from '../Backdrop/Backdrop';
 
-const model = (props) => (
-
+const modal = ( props ) => (
     <Aux>
-
-<BackDrop show={props.show} clicked ={props.modalClosed} />
-
-<div className="Modal" style={{ 
-    
-    transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
-    opacity: props.show ? '1' : '0'
-
-}}  >
-    
-    {props.children}
-    
-</div>
-</Aux>
+        <Backdrop show={props.show} clicked={props.modalClosed} />
+        <div
+            className="Modal"
+            style={{
+                transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
+                opacity: props.show ? '1' : '0'
+            }}>
+            {props.children}
+        </div>
+    </Aux>
 );
 
-export default model;
+export default modal;
