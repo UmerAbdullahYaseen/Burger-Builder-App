@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import axios from '../../axios-orders';
 import Aux from '../../hoc/Auxiliry';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -14,10 +14,7 @@ const INGREDIENT_PRICES = {
 };
 
 class BurgerBuilder extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {...}
-    // }
+ 
     state = {
         ingredients: {
             salad: 0,
@@ -80,9 +77,32 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false});
     }
 
+
+
     purchaseContinueHandler = () => {
-        alert('You continue!');
+        //alert('You continue!');
+
+        const order ={
+
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            constumer: {
+                name: 'Umer Abdullah',
+                address: {
+                   street: 'Street Number 12',
+                   houseNumer:'10',
+                   Block: 'F',
+                   zipCode: '54000'
+                },
+                email: 'SP18-BCS-184@cuilahore.edu.pk'
+            },
+            deliveryMethod: 'Fastest'
+        }
+
+        axios.post('/orders.json', order).then(response => console.log(response)).catch(error => console.log(error));
     }
+
+
 
     render () {
         const disabledInfo = {
